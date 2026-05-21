@@ -1,0 +1,99 @@
+import { motion } from 'framer-motion';
+
+const DIFFS = [
+  {
+    metric: '26 estados',
+    title: 'Cobertura Nacional',
+    desc: 'Atuamos em todos os estados brasileiros e Distrito Federal, com rotas otimizadas e parceiros estratégicos em cada região.'
+  },
+  {
+    metric: 'SLA 98%',
+    title: 'Comprometimento Total',
+    desc: 'Cada operação recebe atenção integral. Cumprimos prazos e mantemos sua carga protegida do início ao fim da jornada.'
+  },
+  {
+    metric: '24 / 7',
+    title: 'Atendimento Personalizado',
+    desc: 'Gerente de conta dedicado para entender e antecipar as necessidades do seu negócio. Suporte disponível a qualquer hora.'
+  },
+  {
+    metric: '+400/mês',
+    title: 'Operações Sob Demanda',
+    desc: 'Escalamos rapidamente para volumes extraordinários. Flexibilidade operacional é parte estrutural da nossa logística.'
+  }
+];
+
+export default function DifferentialsSection() {
+  return (
+    <section id="diferenciais" aria-labelledby="diff-title" className="bg-vv-navy text-white py-[60px] relative overflow-hidden">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          
+          {/* Left Column - Title */}
+          <div className="lg:col-span-5 space-y-6">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="space-y-4"
+            >
+              <div className="flex items-center gap-3">
+                <div className="h-px w-8 bg-vv-blue" />
+                <span className="text-xs font-mono text-vv-blue tracking-[0.25em] uppercase font-bold">
+                  POR QUE A VAI&amp;VEM
+                </span>
+              </div>
+              
+              <h2
+                id="diff-title"
+                className="text-4xl sm:text-5xl lg:text-6.5xl font-black leading-[0.95] tracking-tighter uppercase text-white"
+              >
+                O que nos
+                <br />
+                torna
+                <br />
+                diferentes.
+              </h2>
+            </motion.div>
+          </div>
+
+          {/* Right Column - Grid */}
+          <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden">
+            {DIFFS.map((d, i) => {
+              // Custom class for each grid cell to get the cross dividers perfectly
+              const cellClasses = [
+                "border-b border-white/10 p-8 lg:p-10 md:border-r", // 0 (top-left)
+                "border-b border-white/10 p-8 lg:p-10", // 1 (top-right)
+                "border-b border-white/10 md:border-b-0 p-8 lg:p-10 md:border-r", // 2 (bottom-left)
+                "p-8 lg:p-10" // 3 (bottom-right)
+              ];
+
+              return (
+                <motion.div
+                  key={d.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className={`${cellClasses[i]} group transition-all duration-300 hover:bg-white/[0.04] flex flex-col justify-start cursor-pointer`}
+                >
+                  <div className="font-black text-3xl lg:text-4xl text-vv-blue mb-4 tracking-tight uppercase transition-colors duration-300">
+                    {d.metric}
+                  </div>
+                  <h3 className="text-lg lg:text-xl font-bold text-white mb-2 leading-snug transition-colors duration-300">
+                    {d.title}
+                  </h3>
+                  <p className="text-sm text-slate-400 group-hover:text-slate-300 leading-relaxed max-w-md transition-colors duration-300">
+                    {d.desc}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
