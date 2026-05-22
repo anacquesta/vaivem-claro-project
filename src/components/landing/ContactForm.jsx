@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle, Loader2, MessageCircle, Mail } from 'lucide-react';
+import { ArrowRight, CheckCircle, XCircle, Loader2, MessageCircle, Mail } from 'lucide-react';
 import { useSite } from '@/contexts/SiteContext';
+import emailjs from '@emailjs/browser';
 
 export default function ContactForm() {
   const { sections } = useSite();
@@ -14,10 +15,35 @@ export default function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('sending');
-    await new Promise((r) => setTimeout(r, 1500));
-    setStatus('sent');
-    setTimeout(() => setStatus('idle'), 4000);
-    setForm({ nome: '', empresa: '', telefone: '', mensagem: '' });
+
+    try {
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      if (!serviceId || !templateId || !publicKey) {
+        console.warn('EmailJS keys not configured. Simulating email submission.');
+        await new Promise((r) => setTimeout(r, 1500));
+      } else {
+        const templateParams = {
+          nome: form.nome,
+          empresa: form.empresa || 'Não informado',
+          telefone: form.telefone,
+          mensagem: form.mensagem || 'Sem mensagem',
+          to_email: 'vaievemtransportesite@gmail.com'
+        };
+
+        await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      }
+
+      setStatus('sent');
+      setTimeout(() => setStatus('idle'), 4000);
+      setForm({ nome: '', empresa: '', telefone: '', mensagem: '' });
+    } catch (error) {
+      console.error('Erro ao enviar e-mail via EmailJS:', error);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 4000);
+    }
   };
 
   const titleParts = (data.title || '').replace(/\\n/g, '\n').split('\n');
@@ -184,12 +210,20 @@ export default function ContactForm() {
               <button
                 type="submit"
                 disabled={status === 'sending'}
-                className="w-full bg-vv-blue hover:bg-vv-blue/90 disabled:opacity-60 text-white font-bold py-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-3 hover:shadow-xl hover:shadow-vv-blue/25"
+                className={`w-full font-bold py-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-3 hover:shadow-xl ${
+                  status === 'error'
+                    ? 'bg-red-600 hover:bg-red-700 text-white hover:shadow-red-600/25'
+                    : status === 'sent'
+                    ? 'bg-emerald-600 hover:bg-emerald-700 text-white hover:shadow-emerald-600/25'
+                    : 'bg-vv-blue hover:bg-vv-blue/90 text-white hover:shadow-vv-blue/25'
+                } disabled:opacity-60`}
               >
                 {status === 'sending' ? (
                   <><Loader2 className="w-4 h-4 animate-spin" />Enviando...</>
                 ) : status === 'sent' ? (
                   <><CheckCircle className="w-4 h-4" />Mensagem enviada!</>
+                ) : status === 'error' ? (
+                  <><XCircle className="w-4 h-4" />Erro ao enviar. Tente novamente!</>
                 ) : (
                   <><span>Enviar Solicitação</span><ArrowRight className="w-4 h-4" /></>
                 )}
