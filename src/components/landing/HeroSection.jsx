@@ -12,7 +12,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section id="hero" aria-labelledby="hero-title" className="relative overflow-hidden bg-white pt-16 lg:pt-0 lg:mt-20 lg:h-[calc(100vh-80px)] lg:min-h-[650px]">
+    <section id="hero" aria-labelledby="hero-title" className="relative overflow-hidden bg-white pt-16 lg:pt-0 lg:mt-20 lg:h-[calc(100vh-80px)] lg:max-h-[650px] lg:min-h-[550px]">
 
       {/* ── MOBILE / TABLET: full-width image block above text ── */}
       {/* Height scales with viewport: mobile 260px → small tablet 320px → tablet 450px */}
