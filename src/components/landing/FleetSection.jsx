@@ -1,23 +1,12 @@
 import { motion } from 'framer-motion';
-
-const FLEET_TABLE = [
-  { tipo: 'VUC', qtd: '25 unidades', cap: '2t6 Km', destino: 'Nacional', media: '3,2 anos', rastr: 100 },
-  { tipo: '3/4', qtd: '40 unidades', cap: '4t6 / 5,6t', destino: 'Nacional', media: '3,7 anos', rastr: 100 },
-  { tipo: 'TRUCK', qtd: '30 unidades', cap: '7t / 12 ton', destino: 'Nacional', media: '3,6 anos', rastr: 100 },
-  { tipo: 'TOCO', qtd: '30 unidades', cap: '4t6 / 12t', destino: 'Nacional', media: '3,8 anos', rastr: 100 },
-  { tipo: 'CARRETA', qtd: '25 unidades', cap: 'Até 30 ton', destino: 'Nacional', media: '4,5 anos', rastr: 100 },
-];
-
-const REAL_TIME = [
-  { id: 'VHC-0492', route: 'SP → Rio de Janeiro', status: 'Em rota', color: 'bg-vv-steel' },
-  { id: 'VHC-1137', route: 'SP → Belo Horizonte', status: 'Entregue', color: 'bg-vv-blue' },
-  { id: 'VHC-0881', route: 'SP → Salvador', status: 'Em rota', color: 'bg-vv-steel' },
-  { id: 'VHC-2203', route: 'PR → São Paulo', status: 'Carregando', color: 'bg-vv-navy' },
-  { id: 'VHC-0340', route: 'SP → Fortaleza', status: 'Em rota', color: 'bg-vv-steel' },
-  { id: 'VHC-1892', route: 'RS → São Paulo', status: 'Em rota', color: 'bg-vv-steel' },
-];
+import { useSite } from '@/contexts/SiteContext';
 
 export default function FleetSection() {
+  const { sections } = useSite();
+  const data = sections.fleet;
+
+  const titleParts = (data.title || '').replace(/\\n/g, '\n').split('\n');
+
   return (
     <section id="estrutura" aria-labelledby="fleet-title" className="bg-white py-[60px]">
       <div className="max-w-[1400px] mx-auto px-3 lg:px-5">
@@ -27,15 +16,19 @@ export default function FleetSection() {
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
             <div className="flex items-center gap-3 mb-5">
               <div className="h-px w-8 bg-vv-blue" />
-              <span className="text-xs font-mono text-vv-blue tracking-[0.2em] uppercase">Nossa Estrutura</span>
+              <span className="text-xs font-mono text-vv-blue tracking-[0.2em] uppercase">{data.badge}</span>
             </div>
             <h2 id="fleet-title" className="text-3xl lg:text-5xl font-extrabold text-vv-navy leading-tight tracking-tight">
-              Frota e estrutura para<br />
-              <span className="text-vv-blue">mover o Brasil.</span>
+              {titleParts.map((part, idx) => (
+                <span key={idx}>
+                  {idx > 0 && <br />}
+                  {idx > 0 ? <span className="text-vv-blue">{part}</span> : part}
+                </span>
+              ))}
             </h2>
           </motion.div>
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }} className="text-vv-steel text-base leading-relaxed">
-            São anos investindo em frota de qualidade, tecnologia e gente boa que acompanha todos os dias nos estradas do Brasil.
+          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }} className="text-vv-steel text-base leading-relaxed whitespace-pre-line">
+            {data.subtitle}
           </motion.p>
         </div>
 
@@ -125,8 +118,8 @@ export default function FleetSection() {
             <div className="p-6 lg:p-8">
               <div className="text-xs font-mono text-vv-blue tracking-widest uppercase mb-6">Atividade em Tempo Real</div>
               <div className="space-y-4">
-                {REAL_TIME.map((v) => (
-                  <div key={v.id} className="flex items-center justify-between">
+                {data.realtime?.map((v, idx) => (
+                  <div key={idx} className="flex items-center justify-between">
                     <div>
                       <div className="text-sm font-mono font-semibold text-vv-navy">{v.id}</div>
                       <div className="text-xs text-vv-steel">{v.route}</div>
@@ -145,13 +138,8 @@ export default function FleetSection() {
 
         {/* Bottom stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-vv-navy/8 rounded-xl overflow-hidden">
-          {[
-            { value: '45+', label: 'Profissionais dedicados' },
-            { value: '100%', label: 'Rastreamento dos veículos' },
-            { value: '5h', label: 'Tempo médio de resposta' },
-            { value: 'SP', label: 'Base principal, São Paulo SP' },
-          ].map((s) => (
-            <div key={s.label} className="bg-white px-6 py-6 lg:py-8">
+          {data.stats?.map((s, idx) => (
+            <div key={idx} className="bg-white px-6 py-6 lg:py-8">
               <div className="font-mono text-3xl lg:text-4xl font-bold text-vv-navy mb-1">{s.value}</div>
               <div className="text-xs text-vv-steel">{s.label}</div>
             </div>

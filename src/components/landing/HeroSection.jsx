@@ -1,8 +1,12 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, MessageCircle } from 'lucide-react';
+import { useSite } from '@/contexts/SiteContext';
 import StatusIndicator from './StatusIndicator';
 
 export default function HeroSection() {
+  const { sections } = useSite();
+  const data = sections.hero;
+
   const scrollToContact = () => {
     document.querySelector('#contato')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -10,34 +14,46 @@ export default function HeroSection() {
   return (
     <section id="hero" aria-labelledby="hero-title" className="relative overflow-hidden bg-white pt-16 lg:pt-20">
 
-      {/* ── MOBILE: full-width image block above text ── */}
-      <div className="lg:hidden w-full h-[260px] overflow-hidden">
+      {/* ── MOBILE / TABLET: full-width image block above text ── */}
+      {/* Height scales with viewport: mobile 260px → small tablet 320px → tablet 450px */}
+      <div className="lg:hidden w-full overflow-hidden h-[260px] sm:h-[320px] md:h-[450px]">
         <img
-          src="/caminhao.jpg"
+          src={data.image_url}
           alt="Frota Vai & Vem Transportes"
           className="w-full h-full object-cover object-center"
         />
       </div>
 
-      {/* ── DESKTOP: absolute-positioned background image ── */}
-      <div className="hidden lg:block absolute inset-0 z-0">
+      {/* ── DESKTOP: image bounded to content height + 20px margin on each side ──
+           Math: section pt-20(80px) + content pt-[70px] = text starts at 150px.
+           Image top = 150 - 20 = 130px from section top.
+           Content pb-[90px] = text ends 90px from section bottom.
+           Image bottom = 90 - 20 = 70px from section bottom.               */}
+      <div
+        className="hero-img-box hidden lg:block absolute z-0 right-0 w-[65%]"
+        style={{ top: '130px', bottom: '70px' }}
+      >
         <img
-          src="/caminhao.jpg"
+          src={data.image_url}
           alt=""
           aria-hidden="true"
-          className="absolute right-0 top-20 bottom-0 w-[65%] object-cover"
+          className="w-full h-full object-cover"
           style={{
             objectPosition: 'left bottom',
             maskImage: 'linear-gradient(to right, transparent 0%, black 25%)',
             WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 25%)'
           }}
         />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, #fff 20%, rgba(255,255,255,0.9) 35%, rgba(255,255,255,0) 70%)' }} />
       </div>
+      {/* White-to-transparent gradient fade over the left edge of the image */}
+      <div
+        className="hidden lg:block absolute z-[1] inset-0 pointer-events-none"
+        style={{ background: 'linear-gradient(to right, #fff 20%, rgba(255,255,255,0.9) 35%, rgba(255,255,255,0) 70%)' }}
+      />
 
       {/* ── Content ── */}
       <div className="relative z-10 w-full max-w-[1400px] mx-auto px-3 lg:px-5 pt-0">
-        <div className="grid lg:grid-cols-12 gap-8 items-start pt-10 pb-10 lg:pt-[70px] lg:pb-[90px]">
+        <div className="grid lg:grid-cols-12 gap-8 items-start pt-10 pb-10 lg:pt-[70px] lg:pb-[90px] min-[1440px]:pt-[25px] min-[1440px]:pb-[25px]">
 
           {/* Left content */}
           <div className="lg:col-span-6 xl:col-span-5 space-y-8 text-center lg:text-left">
@@ -49,21 +65,27 @@ export default function HeroSection() {
               <div className="flex items-center justify-center lg:justify-start gap-3 mb-6">
                 <div className="h-px w-12 bg-vv-blue" />
                 <span className="text-xs font-mono text-vv-blue tracking-[0.2em] uppercase">
-                  Conectando destinos
+                  {data.badge}
                 </span>
               </div>
 
               <h1
                 id="hero-title"
-                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-vv-navy leading-[0.95] tracking-tight"
+                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-vv-navy leading-[0.95] tracking-tight whitespace-pre-line"
               >
-                Movemos
-                <br />
-                cargas.
-                <br />
-                <span className="text-vv-blue">Impulsionamos</span>
-                <br />
-                negócios.
+                {data.title.replace(/\\n/g, '\n')}
+                {data.highlight && (
+                  <>
+                    <br />
+                    <span className="text-vv-blue">{data.highlight}</span>
+                  </>
+                )}
+                {data.subtitle && (
+                  <>
+                    <br />
+                    {data.subtitle}
+                  </>
+                )}
               </h1>
             </motion.div>
 
@@ -71,10 +93,9 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-vv-steel text-base lg:text-lg max-w-md leading-relaxed mx-auto lg:mx-0"
+              className="text-vv-steel text-base lg:text-lg max-w-md leading-relaxed mx-auto lg:mx-0 whitespace-pre-line"
             >
-              Soluções inteligentes de transporte com cobertura nacional,
-              monitoramento em tempo real e operações personalizadas.
+              {data.description}
             </motion.p>
 
             <motion.div
@@ -87,18 +108,20 @@ export default function HeroSection() {
                 onClick={scrollToContact}
                 className="group bg-vv-blue hover:bg-vv-blue/90 text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 flex items-center gap-3 hover:shadow-xl hover:shadow-vv-blue/25"
               >
-                Solicitar Orçamento
+                {data.cta_primary_label}
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </button>
-              <a
-                href="https://wa.me/5511962796531"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="border border-vv-navy/20 hover:border-vv-navy/40 text-vv-navy font-medium px-8 py-4 rounded-lg transition-all duration-300 flex items-center gap-3 hover:bg-vv-navy/5"
-              >
-                <MessageCircle className="w-4 h-4" />
-                WhatsApp
-              </a>
+              {data.cta_secondary_label && (
+                <a
+                  href={data.cta_secondary_href || "https://wa.me/5511962796531"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border border-vv-navy/20 hover:border-vv-navy/40 text-vv-navy font-medium px-8 py-4 rounded-lg transition-all duration-300 flex items-center gap-3 hover:bg-vv-navy/5"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  {data.cta_secondary_label}
+                </a>
+              )}
             </motion.div>
 
             <motion.div

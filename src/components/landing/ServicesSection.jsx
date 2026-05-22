@@ -1,34 +1,13 @@
 import { motion } from 'framer-motion';
-import { Package, Route, Truck, Settings } from 'lucide-react';
-
-const SERVICES = [
-  {
-    num: '01',
-    icon: Package,
-    title: 'Transporte de Carga Geral',
-    desc: 'Coleta e entrega em todo o território nacional com segurança, pontualidade e rastreabilidade completa.',
-  },
-  {
-    num: '02',
-    icon: Route,
-    title: 'Modal Rodoviário',
-    desc: 'Cobertura completa da malha viária brasileira com rotas otimizadas e motoristas especializados.',
-  },
-  {
-    num: '03',
-    icon: Truck,
-    title: 'Frota Própria',
-    desc: 'Veículos próprios com manutenção preventiva rigorosa, rastreamento GPS e motoristas treinados.',
-  },
-  {
-    num: '04',
-    icon: Settings,
-    title: 'Operações Personalizadas',
-    desc: 'Projetos logísticos sob medida para demandas específicas, escaláveis conforme o crescimento do seu negócio.',
-  },
-];
+import * as Icons from 'lucide-react';
+import { useSite } from '@/contexts/SiteContext';
 
 export default function ServicesSection() {
+  const { sections } = useSite();
+  const data = sections.services;
+
+  const titleParts = (data.title || '').replace(/\\n/g, '\n').split('\n');
+
   return (
     <section id="servicos" aria-labelledby="services-title" className="bg-vv-surface py-[60px] relative overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
@@ -39,7 +18,7 @@ export default function ServicesSection() {
           {/* Fleet Image Header Section */}
           <div className="relative w-full h-[320px] md:h-[450px] lg:h-[500px] overflow-hidden">
             <img
-              src="/frota.jpg"
+              src={data.image_url}
               alt="Nossa frota de caminhões e vans"
               className="w-full h-full object-cover"
             />
@@ -58,14 +37,18 @@ export default function ServicesSection() {
                 <div className="flex items-center gap-3 mb-1">
                   <div className="h-px w-8 bg-vv-blue" />
                   <span className="text-[10px] md:text-xs font-mono text-vv-blue tracking-[0.25em] uppercase font-bold">
-                    Soluções Logísticas
+                    {data.badge}
                   </span>
                 </div>
                 
                 <h2 id="services-title" className="text-4xl md:text-5xl lg:text-6.5xl font-black leading-[0.95] tracking-tighter uppercase text-vv-navy">
-                  Serviços
-                  <br />
-                  <span className="text-vv-navy/85">Operacionais</span>
+                  {titleParts[0]}
+                  {titleParts[1] && (
+                    <>
+                      <br />
+                      <span className="text-vv-navy/85">{titleParts[1]}</span>
+                    </>
+                  )}
                 </h2>
               </motion.div>
             </div>
@@ -90,11 +73,11 @@ export default function ServicesSection() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 relative z-10">
-              {SERVICES.map((s, i) => {
-                const Icon = s.icon;
+              {data.items?.map((s, i) => {
+                const IconComponent = Icons[s.icon] || Icons.Package;
                 return (
                   <motion.article
-                    key={s.title}
+                    key={i}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -108,7 +91,7 @@ export default function ServicesSection() {
 
                     {/* Icon Box */}
                     <div className="w-12 h-12 rounded-xl border border-vv-navy/10 bg-white group-hover:bg-vv-blue/5 flex items-center justify-center mb-6 shadow-sm group-hover:border-vv-blue transition-all duration-300">
-                      <Icon className="w-5 h-5 text-vv-steel group-hover:text-vv-blue transition-all duration-300" />
+                      <IconComponent className="w-5 h-5 text-vv-steel group-hover:text-vv-blue transition-all duration-300" />
                     </div>
 
                     {/* Title */}

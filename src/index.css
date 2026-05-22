@@ -169,4 +169,30 @@
     flex-direction: column;
     align-items: center;
   }
-}
+}
+
+/* ── Large screens (≥ 1440px): hero image offset recalculation ──
+   Content pt/pb = 25px → text starts at 80+25=105px from section top.
+   Image top = 105 - 20 = 85px  |  Image bottom = 25 - 20 = 5px         */
+@media (min-width: 1440px) {
+  .hero-img-box {
+    top: 85px !important;
+    bottom: 5px !important;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+

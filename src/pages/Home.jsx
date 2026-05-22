@@ -7,6 +7,7 @@ import FleetSection from '../components/landing/FleetSection';
 import DifferentialsSection from '../components/landing/DifferentialsSection';
 import ContactForm from '../components/landing/ContactForm';
 import FooterSection from '../components/landing/FooterSection';
+import { WhatsAppChat } from '../components/landing/WhatsAppChat';
 
 const IMAGES = {
   hero: 'https://media.base44.com/images/public/6a0e25be8ced3ba0c2433d42/2f01b923e_generated_d8a7129b.png',
@@ -28,6 +29,7 @@ export default function Home() {
         <ContactForm />
       </main>
       <FooterSection />
+      <WhatsAppChat />
     </div>
   );
 }
