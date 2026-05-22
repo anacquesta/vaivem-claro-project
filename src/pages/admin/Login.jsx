@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 
 export default function AdminLogin() {
@@ -6,6 +6,11 @@ export default function AdminLogin() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.classList.add('admin-mode');
+    return () => document.documentElement.classList.remove('admin-mode');
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();

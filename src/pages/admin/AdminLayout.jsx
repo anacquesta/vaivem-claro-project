@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
 import {
@@ -23,6 +24,11 @@ const NAV = [
 
 export default function AdminLayout() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.documentElement.classList.add('admin-mode');
+    return () => document.documentElement.classList.remove('admin-mode');
+  }, []);
 
   const handleLogout = async () => {
     await supabase?.auth.signOut();
