@@ -102,7 +102,7 @@
   }
 }
 
-/* ── Site Container: 95% on mobile, 80% (max 1440px) on desktop ── */
+/* ── Site Container: 95% on mobile, 90% (max 1440px) on desktop ── */
 .site-container {
   width: 95%;
   max-width: 95%;
@@ -112,7 +112,7 @@
 
 @media (min-width: 1024px) {
   .site-container {
-    width: 80%;
+    width: 90%;
     max-width: 1440px;
   }
 }
