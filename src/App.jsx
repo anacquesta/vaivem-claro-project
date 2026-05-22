@@ -11,6 +11,7 @@ import AdminLogin from './pages/admin/Login';
 import AdminRoute from './components/admin/AdminRoute';
 import AdminLayout from './pages/admin/AdminLayout';
 import Dashboard from './pages/admin/Dashboard';
+import Manual from './pages/admin/Manual';
 
 // Admin Editor Imports
 import HeroEditor from './pages/admin/editors/HeroEditor';
@@ -51,6 +52,7 @@ function App() {
               <Route path="footer" element={<FooterEditor />} />
               <Route path="global" element={<GlobalEditor />} />
               <Route path="media" element={<MediaEditor />} />
+              <Route path="manual" element={<Manual />} />
             </Route>
             <Route path="*" element={<PageNotFound />} />
           </Routes>

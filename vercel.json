@@ -1,7 +1,6 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/manual", "destination": "/manual.html" },
-    { "source": "/((?!assets/|caminhao.jpg|frota.jpg|logo.*|manual.html|.*\\.).*)", "destination": "/index.html" }
+    { "source": "/((?!assets/|caminhao.jpg|frota.jpg|logo.*|.*\\.).*)", "destination": "/index.html" }
   ]
 }

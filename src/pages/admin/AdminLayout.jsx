@@ -4,7 +4,7 @@ import { supabase } from '@/lib/supabase';
 import {
   LayoutDashboard, Image, Globe, Star, Info, Briefcase,
   Truck, Award, Phone, Anchor, Palette, LogOut, ExternalLink,
-  Menu, X
+  Menu, X, HelpCircle
 } from 'lucide-react';
 
 const NAV = [
@@ -21,6 +21,7 @@ const NAV = [
   { label: 'CONFIGURAÇÃO', divider: true },
   { to: '/admin/global', label: 'Cores & Fontes', icon: Palette },
   { to: '/admin/media', label: 'Mídia', icon: Image },
+  { to: '/admin/manual', label: 'Manual de Uso', icon: HelpCircle },
 ];
 
 export default function AdminLayout() {
