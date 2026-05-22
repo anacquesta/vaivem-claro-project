@@ -12,7 +12,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section id="hero" aria-labelledby="hero-title" className="relative overflow-hidden bg-white pt-16 lg:pt-20">
+    <section id="hero" aria-labelledby="hero-title" className="relative overflow-hidden bg-white pt-16 lg:pt-0 lg:mt-20 lg:h-[calc(100vh-80px)] lg:min-h-[650px]">
 
       {/* ── MOBILE / TABLET: full-width image block above text ── */}
       {/* Height scales with viewport: mobile 260px → small tablet 320px → tablet 450px */}
@@ -24,13 +24,9 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* ── DESKTOP: image bounded to content height ──
-           Math: section pt-20(80px) + content pt-[110px] = text starts at 190px.
-           Image top = 170px (further lowered by 15% / 25px to 195px).
-           Image bottom = 20px (further lowered by 25px to -5px).           */}
+      {/* ── DESKTOP: image bounded to content height ── */}
       <div
-        className="hero-img-box hidden lg:block absolute z-0 right-0 w-[65%]"
-        style={{ top: '195px', bottom: '-5px' }}
+        className="hero-img-box hidden lg:block absolute z-0 right-0 w-[65%] top-0 bottom-0"
       >
         <img
           src={data.image_url}
@@ -51,11 +47,11 @@ export default function HeroSection() {
       />
  
       {/* ── Content ── */}
-      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-3 lg:px-5 pt-0">
-        <div className="grid lg:grid-cols-12 gap-8 items-start pt-20 pb-10 lg:pt-[110px] lg:pb-[40px] min-[1440px]:pt-[65px] min-[1440px]:pb-[40px]">
+      <div className="relative z-10 w-full lg:h-full max-w-[1400px] mx-auto px-3 lg:px-5 pt-0">
+        <div className="grid lg:grid-cols-12 gap-8 items-stretch lg:h-full pt-20 pb-10 lg:pt-0 lg:pb-0 min-[1440px]:pt-0 min-[1440px]:pb-0">
 
           {/* Left content */}
-          <div className="lg:col-span-6 xl:col-span-5 space-y-8 text-center lg:text-left">
+          <div className="lg:col-span-6 xl:col-span-5 flex flex-col justify-between text-center lg:text-left pt-6 pb-10 lg:pt-[20px] lg:pb-[40px] lg:space-y-0">
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}

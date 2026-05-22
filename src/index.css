@@ -178,16 +178,7 @@
   }
 }
 
-/* ── Large screens (≥ 1440px): hero image offset recalculation ──
-   Content pt = 65px, pb = 40px → text starts at 80+65=145px from section top.
-   Image top = 125px (further lowered by 15% / 19px to 144px).
-   Image bottom = 20px (further lowered by 19px to 1px).                 */
-@media (min-width: 1440px) {
-  .hero-img-box {
-    top: 144px !important;
-    bottom: 1px !important;
-  }
-}
+
 
 @keyframes fadeInUp {
   from {
