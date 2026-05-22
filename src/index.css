@@ -85,9 +85,12 @@
   html {
     zoom: 0.8;
   }
-  html.admin-mode {
+  html.admin-mode,
+  html.admin-mode body {
     zoom: 1 !important;
     background-color: #0D1B2E !important;
+    min-height: 100vh;
+    margin: 0;
   }
 
   * {

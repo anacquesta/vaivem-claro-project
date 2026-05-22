@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
 
 export default function AdminLogin() {
@@ -6,11 +7,37 @@ export default function AdminLogin() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.documentElement.classList.add('admin-mode');
-    return () => document.documentElement.classList.remove('admin-mode');
-  }, []);
+    
+    let subscription = null;
+    
+    if (supabase) {
+      // Check if session already exists
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session) {
+          navigate('/admin', { replace: true });
+        }
+      });
+
+      // Listen for auth state changes
+      const res = supabase.auth.onAuthStateChange((_event, session) => {
+        if (session) {
+          navigate('/admin', { replace: true });
+        }
+      });
+      subscription = res.data.subscription;
+    }
+
+    return () => {
+      document.documentElement.classList.remove('admin-mode');
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+    };
+  }, [navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -20,7 +47,7 @@ export default function AdminLogin() {
       if (!supabase) throw new Error('Supabase não configurado. Verifique o arquivo .env');
       const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
       if (authError) throw authError;
-      // Redirect handled by AdminRoute watcher
+      navigate('/admin', { replace: true });
     } catch (err) {
       setError(err.message);
     } finally {

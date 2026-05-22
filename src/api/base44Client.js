@@ -3,12 +3,22 @@ import { appParams } from '@/lib/app-params';
 
 const { appId, token, functionsVersion, appBaseUrl } = appParams;
 
+const isAppIdValid = appId && appId !== 'null' && appId !== 'undefined';
+
 //Create a client with authentication required
-export const base44 = createClient({
-  appId,
-  token,
-  functionsVersion,
-  serverUrl: '',
-  requiresAuth: false,
-  appBaseUrl
-});
+export const base44 = isAppIdValid
+  ? createClient({
+      appId,
+      token,
+      functionsVersion,
+      serverUrl: '',
+      requiresAuth: false,
+      appBaseUrl
+    })
+  : {
+      auth: {
+        me: async () => { throw new Error('Base44 not configured'); },
+        logout: () => {},
+        redirectToLogin: () => {}
+      }
+    };
