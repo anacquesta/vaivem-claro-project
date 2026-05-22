@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useSite } from "@/contexts/SiteContext";
 
 const PHONE = "5511962796531";
 const waLink = (msg) =>
@@ -90,6 +91,8 @@ const FLOW = {
 };
 
 export function WhatsAppChat() {
+  const { sections } = useSite();
+  const logoUrl = sections?.navbar?.logo_url || "/logo.png";
   const [open, setOpen] = useState(false);
   const [nodeKey, setNodeKey] = useState("start");
   const [messages, setMessages] = useState([
@@ -207,8 +210,8 @@ export function WhatsAppChat() {
         <div className="mx-auto flex h-[85vh] w-full max-w-[400px] flex-col overflow-hidden border border-border bg-[#0b141a] shadow-2xl sm:h-[560px] sm:rounded-2xl">
           {/* Header */}
           <header className="flex items-center gap-3 bg-[#075E54] px-4 py-3 text-white">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-lg font-extrabold lowercase">
-              v
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white p-1">
+              <img src={logoUrl} alt="Logo" className="h-full w-auto object-contain" />
             </div>
             <div className="flex-1">
               <p className="text-sm font-semibold">Vai e Vem Transportes</p>

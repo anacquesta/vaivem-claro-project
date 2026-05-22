@@ -158,10 +158,57 @@ function injectColorVars(colors) {
   el.textContent = `:root { ${vars} }\n${overrides}`;
 }
 
+function injectFonts(fontPrimary, fontMono) {
+  const primary = fontPrimary || 'Inter';
+  const mono = fontMono || 'JetBrains Mono';
+
+  // 1. Inject the Google Fonts Link tag
+  const linkId = 'vv-dynamic-fonts';
+  let el = document.getElementById(linkId);
+  if (!el) {
+    el = document.createElement('link');
+    el.id = linkId;
+    el.rel = 'stylesheet';
+    document.head.appendChild(el);
+  }
+  
+  const primaryName = primary.trim().replace(/\s+/g, '+');
+  const monoName = mono.trim().replace(/\s+/g, '+');
+  
+  el.href = `https://fonts.googleapis.com/css2?family=${primaryName}:wght@300;400;500;600;700;800;900&family=${monoName}:wght@400;500;600&display=swap`;
+
+  // 2. Inject CSS variables overrides
+  const styleId = 'vv-dynamic-font-vars';
+  let styleEl = document.getElementById(styleId);
+  if (!styleEl) {
+    styleEl = document.createElement('style');
+    styleEl.id = styleId;
+    document.head.appendChild(styleEl);
+  }
+  
+  styleEl.textContent = `
+    :root {
+      --font-inter: '${primary}', sans-serif !important;
+      --font-mono: '${mono}', monospace !important;
+    }
+    body {
+      font-family: var(--font-inter) !important;
+    }
+  `;
+}
+
 export function SiteProvider({ children }) {
   const [sections, setSections] = useState(SECTION_DEFAULTS);
   const [globalConfig, setGlobalConfig] = useState(GLOBAL_DEFAULTS);
   const [loading, setLoading] = useState(true);
+
+  // Apply colors and fonts dynamically when globalConfig changes
+  useEffect(() => {
+    if (globalConfig) {
+      if (globalConfig.colors) injectColorVars(globalConfig.colors);
+      injectFonts(globalConfig.font_primary, globalConfig.font_mono);
+    }
+  }, [globalConfig]);
 
   useEffect(() => {
     async function fetchSiteData() {
@@ -188,7 +235,6 @@ export function SiteProvider({ children }) {
           configData.forEach(({ key, value }) => { cfg[key] = value; });
           const merged = { ...GLOBAL_DEFAULTS, ...cfg };
           setGlobalConfig(merged);
-          if (merged.colors) injectColorVars(merged.colors);
         }
       } catch (err) {
         console.warn('[SiteContext] Erro ao buscar dados:', err.message);
