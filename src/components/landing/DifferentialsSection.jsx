@@ -9,7 +9,7 @@ export default function DifferentialsSection() {
 
   return (
     <section id="diferenciais" aria-labelledby="diff-title" className="bg-vv-navy text-white py-[60px] relative overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+      <div className="site-container px-6 lg:px-10">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
           {/* Left Column - Title */}

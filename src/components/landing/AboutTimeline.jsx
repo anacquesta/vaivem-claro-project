@@ -9,7 +9,7 @@ export default function AboutTimeline() {
 
   return (
     <section id="sobre" aria-labelledby="about-title" className="bg-white text-vv-navy py-[60px] relative overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+      <div className="site-container px-6 lg:px-10">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
           
           {/* Left Column */}

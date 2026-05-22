@@ -102,15 +102,23 @@
   }
 }
 
-/* ── Mobile: 95% width, centered ── */
-@media (max-width: 1023px) {
-  /* Constrain page containers to 95% width */
-  .max-w-\[1400px\] {
-    width: 95%;
-    max-width: 95%;
-    margin-left: auto;
-    margin-right: auto;
+/* ── Site Container: 95% on mobile, 80% (max 1440px) on desktop ── */
+.site-container {
+  width: 95%;
+  max-width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1024px) {
+  .site-container {
+    width: 80%;
+    max-width: 1440px;
   }
+}
+
+/* ── Mobile: centered tweaks ── */
+@media (max-width: 1023px) {
 
   /* Center section subtitles (label + decorative line) */
   section .flex.items-center.gap-3:has(.h-px) {

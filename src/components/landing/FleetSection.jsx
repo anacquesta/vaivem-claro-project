@@ -9,7 +9,7 @@ export default function FleetSection() {
 
   return (
     <section id="estrutura" aria-labelledby="fleet-title" className="bg-white py-[60px]">
-      <div className="max-w-[1400px] mx-auto px-3 lg:px-5">
+      <div className="site-container px-3 lg:px-5">
 
         {/* Header */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-end mb-16">

@@ -24,7 +24,7 @@ export default function ContactForm() {
 
   return (
     <section id="contato" aria-labelledby="contact-title" className="relative py-[60px] overflow-hidden bg-vv-blue">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+      <div className="site-container px-6 lg:px-10">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* Left Column - Contact Details */}

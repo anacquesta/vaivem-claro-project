@@ -10,7 +10,7 @@ export default function ServicesSection() {
 
   return (
     <section id="servicos" aria-labelledby="services-title" className="bg-vv-surface py-[60px] relative overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+      <div className="site-container px-6 lg:px-10">
         
         {/* Unified Container - holds both the image and the cards */}
         <div className="bg-white rounded-2xl overflow-hidden shadow-xl border border-vv-navy/5">

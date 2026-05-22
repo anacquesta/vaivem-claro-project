@@ -47,7 +47,7 @@ export default function HeroSection() {
       />
  
       {/* ── Content ── */}
-      <div className="relative z-10 w-full lg:h-full max-w-[1400px] mx-auto px-3 lg:px-5 pt-0">
+      <div className="site-container relative z-10 w-full lg:h-full px-3 lg:px-5 pt-0">
         <div className="grid lg:grid-cols-12 gap-8 items-stretch lg:h-full pt-20 pb-10 lg:pt-0 lg:pb-0 min-[1440px]:pt-0 min-[1440px]:pb-0">
 
           {/* Left content */}

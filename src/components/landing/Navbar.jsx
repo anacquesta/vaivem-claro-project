@@ -29,7 +29,7 @@ export default function Navbar() {
           : 'bg-white/80 backdrop-blur-md'
       }`}
     >
-      <nav className="max-w-[1400px] mx-auto flex items-center justify-between px-6 lg:px-10 h-16 lg:h-20">
+      <nav className="site-container flex items-center justify-between px-6 lg:px-10 h-16 lg:h-20">
         <a href="#hero" onClick={() => scrollTo('#hero')} className="flex items-center gap-3">
           <img
             src={data.logo_url}

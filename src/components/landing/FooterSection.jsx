@@ -11,7 +11,7 @@ export default function FooterSection() {
 
   return (
     <footer className="relative border-t border-vv-navy/10 bg-white">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 pt-16 pb-4 lg:pt-20 lg:pb-6">
+      <div className="site-container px-6 lg:px-10 pt-16 pb-4 lg:pt-20 lg:pb-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[auto_1fr_1fr_max-content] gap-12 lg:gap-16 items-start">
           <div className="flex flex-col justify-start">
             <img

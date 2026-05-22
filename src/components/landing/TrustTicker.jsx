@@ -8,7 +8,7 @@ const PARTNERS = [
 export default function TrustTicker() {
   return (
     <section className="relative py-8 overflow-hidden bg-vv-blue" aria-label="Empresas parceiras">
-      <div className="max-w-[1400px] mx-auto px-3 lg:px-5 mb-4">
+      <div className="site-container px-3 lg:px-5 mb-4">
         <div className="flex items-center gap-3">
           <div className="h-px w-8 bg-white/40" />
           <p className="text-[10px] sm:text-xs font-mono text-white/50 tracking-[0.25em] uppercase text-left">
