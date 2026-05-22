@@ -28,7 +28,7 @@ export default function ContactForm() {
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* Left Column - Contact Details */}
-          <div className="lg:col-span-5 space-y-6 text-white">
+          <div className="lg:col-span-5 space-y-6 text-white lg:order-2">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -106,7 +106,7 @@ export default function ContactForm() {
           </div>
 
           {/* Right Column - Contact Card Form */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-7 lg:order-1">
             <motion.form
               onSubmit={handleSubmit}
               initial={{ opacity: 0, y: 30 }}
