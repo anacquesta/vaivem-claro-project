@@ -25,42 +25,44 @@ export default function ContactForm() {
   return (
     <section id="contato" aria-labelledby="contact-title" className="relative py-[60px] overflow-hidden bg-vv-blue">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-stretch">
           
           {/* Left Column - Contact Details */}
-          <div className="lg:col-span-5 space-y-6 text-white lg:order-2">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-              className="space-y-4"
-            >
-              <div className="flex items-center gap-3">
-                <div className="h-px w-8 bg-vv-navy" />
-                <span className="text-xs font-mono text-vv-navy font-semibold tracking-[0.25em] uppercase">
-                  {data.badge}
-                </span>
-              </div>
-              
-              <h2
-                id="contact-title"
-                className="text-4xl sm:text-5xl lg:text-6.5xl font-black leading-[0.95] tracking-tighter uppercase text-white"
+          <div className="lg:col-span-5 flex flex-col justify-between space-y-8 lg:space-y-0 text-white lg:order-2 py-2">
+            <div className="space-y-6">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7 }}
+                className="space-y-4"
               >
-                {titleParts.map((part, idx) => (
-                  <span key={idx} className={idx > 0 ? 'text-vv-navy/45' : ''}>
-                    {idx > 0 && <br />}
-                    {part}
+                <div className="flex items-center gap-3">
+                  <div className="h-px w-8 bg-vv-navy" />
+                  <span className="text-xs font-mono text-vv-navy font-semibold tracking-[0.25em] uppercase">
+                    {data.badge}
                   </span>
-                ))}
-              </h2>
-            </motion.div>
+                </div>
+                
+                <h2
+                  id="contact-title"
+                  className="text-4xl sm:text-5xl lg:text-6.5xl font-black leading-[0.95] tracking-tighter uppercase text-white"
+                >
+                  {titleParts.map((part, idx) => (
+                    <span key={idx} className={idx > 0 ? 'text-vv-navy/45' : ''}>
+                      {idx > 0 && <br />}
+                      {part}
+                    </span>
+                  ))}
+                </h2>
+              </motion.div>
 
-            <p className="text-white/90 text-base lg:text-lg leading-relaxed max-w-md mb-8 whitespace-pre-line">
-              {data.subtitle}
-            </p>
+              <p className="text-white/90 text-base lg:text-lg leading-relaxed max-w-md whitespace-pre-line">
+                {data.subtitle}
+              </p>
+            </div>
 
-            <div className="space-y-6 pt-6">
+            <div className="space-y-6 pt-6 lg:pt-0">
               {/* WhatsApp block */}
               {data.phone && (
                 <div className="flex items-center justify-between lg:justify-start gap-4 w-full">
