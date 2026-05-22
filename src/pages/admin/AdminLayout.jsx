@@ -4,7 +4,7 @@ import { supabase } from '@/lib/supabase';
 import {
   LayoutDashboard, Image, Globe, Star, Info, Briefcase,
   Truck, Award, Phone, Anchor, Palette, LogOut, ExternalLink,
-  Menu, X, HelpCircle
+  Menu, X, HelpCircle, MessageSquare
 } from 'lucide-react';
 
 const NAV = [
@@ -18,6 +18,7 @@ const NAV = [
   { to: '/admin/differentials', label: 'Diferenciais', icon: Award },
   { to: '/admin/contact', label: 'Contato', icon: Phone },
   { to: '/admin/footer', label: 'Footer', icon: Anchor },
+  { to: '/admin/whatsapp', label: 'Chat WhatsApp', icon: MessageSquare },
   { label: 'CONFIGURAÇÃO', divider: true },
   { to: '/admin/global', label: 'Cores & Fontes', icon: Palette },
   { to: '/admin/media', label: 'Mídia', icon: Image },

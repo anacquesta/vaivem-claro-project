@@ -1,11 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useSite } from "@/contexts/SiteContext";
 
-const PHONE = "5511962796531";
-const waLink = (msg) =>
-  `https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`;
+const DEFAULT_PHONE = "5511962796531";
 
-const FLOW = {
+const DEFAULT_FLOW = {
   start: {
     bot: "Olá! 👋 Sou o assistente virtual da Vai e Vem Transportes. Como posso te ajudar hoje?",
     options: [
@@ -93,14 +91,28 @@ const FLOW = {
 export function WhatsAppChat() {
   const { sections } = useSite();
   const logoUrl = sections?.navbar?.logo_url || "/logo.png";
+  
+  const whatsappConfig = sections?.whatsapp || {};
+  const phone = whatsappConfig.phone || DEFAULT_PHONE;
+  const flow = whatsappConfig.flow || DEFAULT_FLOW;
+
+  const waLink = (msg) =>
+    `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+
   const [open, setOpen] = useState(false);
   const [nodeKey, setNodeKey] = useState("start");
-  const [messages, setMessages] = useState([
-    { from: "bot", text: FLOW.start.bot },
-  ]);
+  const [messages, setMessages] = useState([]);
   const [typing, setTyping] = useState(false);
   const [showTeaser, setShowTeaser] = useState(false);
   const scrollRef = useRef(null);
+
+  // Initialize or reset messages when dynamic flow is loaded or changes
+  useEffect(() => {
+    if (flow?.start?.bot) {
+      setMessages([{ from: "bot", text: flow.start.bot }]);
+      setNodeKey("start");
+    }
+  }, [flow]);
 
   useEffect(() => {
     // Show teaser after 4 seconds if chat is not already open
@@ -135,23 +147,26 @@ export function WhatsAppChat() {
       return;
     }
     if (opt.next) {
-      const next = FLOW[opt.next];
-      setMessages((m) => [...m, { from: "user", text: opt.label }]);
-      setTyping(true);
-      setTimeout(() => {
-        setTyping(false);
-        setMessages((m) => [...m, { from: "bot", text: next.bot }]);
-        setNodeKey(opt.next);
-      }, 650);
+      const next = flow[opt.next];
+      if (next) {
+        setMessages((m) => [...m, { from: "user", text: opt.label }]);
+        setTyping(true);
+        setTimeout(() => {
+          setTyping(false);
+          setMessages((m) => [...m, { from: "bot", text: next.bot }]);
+          setNodeKey(opt.next);
+        }, 650);
+      }
     }
   };
 
   const restart = () => {
-    setMessages([{ from: "bot", text: FLOW.start.bot }]);
-    setNodeKey("start");
+    if (flow?.start?.bot) {
+      setMessages([{ from: "bot", text: flow.start.bot }]);
+      setNodeKey("start");
+    }
   };
-
-  const currentOptions = typing ? [] : FLOW[nodeKey].options;
+  const currentOptions = (typing || !flow || !flow[nodeKey]) ? [] : (flow[nodeKey].options || []);
 
   return (
     <>

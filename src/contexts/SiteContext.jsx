@@ -123,6 +123,93 @@ export const SECTION_DEFAULTS = {
     address: 'São Paulo, SP',
     copyright_name: 'Vai&Vem Transportes',
   },
+  whatsapp: {
+    phone: "5511962796531",
+    flow: {
+      start: {
+        bot: "Olá! 👋 Sou o assistente virtual da Vai e Vem Transportes. Como posso te ajudar hoje?",
+        options: [
+          { label: "💰 Solicitar orçamento", next: "orcamento" },
+          { label: "📦 Atendimento / dúvidas", next: "atendimento" },
+          { label: "📣 SAC (elogios e reclamações)", next: "sac" },
+          { label: "🤝 Quero ser motorista agregado", next: "agregado" },
+        ],
+      },
+      orcamento: {
+        bot: "Perfeito! Para agilizar seu orçamento, vou te conectar direto com nosso time comercial no WhatsApp. Qual o tipo de operação?",
+        options: [
+          {
+            label: "Carga fracionada",
+            wa: "Olá! Gostaria de um orçamento para carga fracionada.",
+          },
+          {
+            label: "Carga dedicada / lotação",
+            wa: "Olá! Gostaria de um orçamento para carga dedicada (lotação).",
+          },
+          {
+            label: "Operação recorrente",
+            wa: "Olá! Tenho interesse em uma operação logística recorrente. Podemos conversar?",
+          },
+          { label: "↩︎ Voltar", next: "start" },
+        ],
+      },
+      atendimento: {
+        bot: "Claro! Selecione abaixo a dúvida mais próxima da sua:",
+        options: [
+          { label: "Vocês atendem todo o Brasil?", next: "faq_cobertura" },
+          { label: "Como rastreio minha carga?", next: "faq_rastreio" },
+          { label: "Tipos de carga transportadas", next: "faq_cargas" },
+          { label: "Prazos de entrega", next: "faq_prazos" },
+          { label: "💬 Falar com atendente", wa: "Olá! Preciso de atendimento, podem me ajudar?" },
+          { label: "↩︎ Voltar", next: "start" },
+        ],
+      },
+      faq_cobertura: {
+        bot: "Sim! Operamos em todo o território nacional, com base operacional em São Paulo e mais de 200 veículos entre frota própria e agregados.",
+        options: [
+          { label: "💬 Falar com atendente", wa: "Olá! Gostaria de saber sobre cobertura para minha rota." },
+          { label: "↩︎ Outras dúvidas", next: "atendimento" },
+        ],
+      },
+      faq_rastreio: {
+        bot: "Todas as cargas têm monitoramento em tempo real 24h. Após a coleta, enviamos o link de rastreio diretamente para você.",
+        options: [
+          { label: "💬 Preciso do rastreio agora", wa: "Olá! Preciso de informações sobre o rastreio da minha carga." },
+          { label: "↩︎ Outras dúvidas", next: "atendimento" },
+        ],
+      },
+      faq_cargas: {
+        bot: "Transportamos carga geral, fracionada, lotação e operações dedicadas. Trabalhamos com diferentes tipos de veículos conforme a necessidade.",
+        options: [
+          { label: "💰 Quero um orçamento", next: "orcamento" },
+          { label: "↩︎ Outras dúvidas", next: "atendimento" },
+        ],
+      },
+      faq_prazos: {
+        bot: "Os prazos variam conforme rota e modalidade. Em operações recorrentes, mantemos SLA combinado em contrato. Para prazos específicos, fale com nosso time.",
+        options: [
+          { label: "💬 Consultar prazo", wa: "Olá! Gostaria de consultar o prazo de entrega para uma rota específica." },
+          { label: "↩︎ Outras dúvidas", next: "atendimento" },
+        ],
+      },
+      sac: {
+        bot: "Sua opinião é fundamental para a gente. O que você gostaria de registrar?",
+        options: [
+          { label: "⭐ Elogio", wa: "Olá! Gostaria de registrar um elogio sobre o atendimento da Vai e Vem." },
+          { label: "⚠️ Reclamação", wa: "Olá! Gostaria de registrar uma reclamação. Podem me ajudar?" },
+          { label: "💡 Sugestão", wa: "Olá! Tenho uma sugestão para a Vai e Vem Transportes." },
+          { label: "↩︎ Voltar", next: "start" },
+        ],
+      },
+      agregado: {
+        bot: "Que ótimo! Estamos sempre abertos a novos parceiros agregados. Vou te direcionar para nosso time de frota.",
+        options: [
+          { label: "📋 Quero me cadastrar", wa: "Olá! Tenho interesse em me tornar motorista agregado da Vai e Vem." },
+          { label: "↩︎ Voltar", next: "start" },
+        ],
+      },
+    },
+  },
 };
 
 export const GLOBAL_DEFAULTS = {

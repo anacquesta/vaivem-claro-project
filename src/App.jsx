@@ -24,6 +24,7 @@ import ContactEditor from './pages/admin/editors/ContactEditor';
 import FooterEditor from './pages/admin/editors/FooterEditor';
 import GlobalEditor from './pages/admin/editors/GlobalEditor';
 import MediaEditor from './pages/admin/editors/MediaEditor';
+import WhatsAppEditor from './pages/admin/editors/WhatsAppEditor';
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
               <Route path="footer" element={<FooterEditor />} />
               <Route path="global" element={<GlobalEditor />} />
               <Route path="media" element={<MediaEditor />} />
+              <Route path="whatsapp" element={<WhatsAppEditor />} />
               <Route path="manual" element={<Manual />} />
             </Route>
             <Route path="*" element={<PageNotFound />} />
