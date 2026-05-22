@@ -13,10 +13,15 @@ export function Field({ label, hint, children }) {
 }
 
 export function Input({ value, onChange, placeholder, type = 'text', ...rest }) {
+  // Convert real newlines to literal "\n" for display in a text input
+  const displayValue = typeof value === 'string'
+    ? value.replace(/\n/g, '\\n')
+    : (value ?? '');
+
   return (
     <input
       type={type}
-      value={value ?? ''}
+      value={displayValue}
       onChange={e => onChange(e.target.value)}
       placeholder={placeholder}
       className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-800 outline-none focus:border-vv-blue focus:ring-2 focus:ring-vv-blue/10 transition-all bg-white"
@@ -26,9 +31,14 @@ export function Input({ value, onChange, placeholder, type = 'text', ...rest }) 
 }
 
 export function Textarea({ value, onChange, placeholder, rows = 3 }) {
+  // Convert literal "\n" to real newlines for display in a multi-line textarea
+  const displayValue = typeof value === 'string'
+    ? value.replace(/\\n/g, '\n')
+    : (value ?? '');
+
   return (
     <textarea
-      value={value ?? ''}
+      value={displayValue}
       onChange={e => onChange(e.target.value)}
       placeholder={placeholder}
       rows={rows}
