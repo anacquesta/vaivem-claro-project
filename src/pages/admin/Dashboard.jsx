@@ -44,8 +44,8 @@ export default function Dashboard() {
             className="group bg-white border border-slate-100 rounded-2xl p-5 hover:border-vv-blue/40 hover:shadow-lg hover:shadow-vv-blue/5 transition-all duration-200 hover:-translate-y-0.5"
           >
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-9 h-9 bg-vv-blue/10 rounded-xl flex items-center justify-center group-hover:bg-vv-blue group-hover:text-white transition-all">
-                <Icon className="w-4 h-4 text-vv-blue group-hover:text-white transition-colors" />
+              <div className="w-9 h-9 bg-vv-blue/10 rounded-xl flex items-center justify-center group-hover:!bg-vv-blue group-hover:!text-white transition-all">
+                <Icon className="w-4 h-4 text-vv-blue group-hover:!text-white transition-colors" />
               </div>
               <span className="font-semibold text-vv-navy text-sm">{label}</span>
             </div>

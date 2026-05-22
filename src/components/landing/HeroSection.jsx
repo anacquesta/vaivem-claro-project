@@ -24,14 +24,13 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* ── DESKTOP: image bounded to content height + 20px margin on each side ──
-           Math: section pt-20(80px) + content pt-[70px] = text starts at 150px.
-           Image top = 150 - 20 = 130px from section top.
-           Content pb-[90px] = text ends 90px from section bottom.
-           Image bottom = 90 - 20 = 70px from section bottom.               */}
+      {/* ── DESKTOP: image bounded to content height ──
+           Math: section pt-20(80px) + content pt-[110px] = text starts at 190px.
+           Image top = 170px (further lowered by 15% / 25px to 195px).
+           Image bottom = 20px (further lowered by 25px to -5px).           */}
       <div
         className="hero-img-box hidden lg:block absolute z-0 right-0 w-[65%]"
-        style={{ top: '130px', bottom: '70px' }}
+        style={{ top: '195px', bottom: '-5px' }}
       >
         <img
           src={data.image_url}
@@ -50,10 +49,10 @@ export default function HeroSection() {
         className="hidden lg:block absolute z-[1] inset-0 pointer-events-none"
         style={{ background: 'linear-gradient(to right, #fff 20%, rgba(255,255,255,0.9) 35%, rgba(255,255,255,0) 70%)' }}
       />
-
+ 
       {/* ── Content ── */}
       <div className="relative z-10 w-full max-w-[1400px] mx-auto px-3 lg:px-5 pt-0">
-        <div className="grid lg:grid-cols-12 gap-8 items-start pt-10 pb-10 lg:pt-[70px] lg:pb-[90px] min-[1440px]:pt-[25px] min-[1440px]:pb-[25px]">
+        <div className="grid lg:grid-cols-12 gap-8 items-start pt-20 pb-10 lg:pt-[110px] lg:pb-[40px] min-[1440px]:pt-[65px] min-[1440px]:pb-[40px]">
 
           {/* Left content */}
           <div className="lg:col-span-6 xl:col-span-5 space-y-8 text-center lg:text-left">

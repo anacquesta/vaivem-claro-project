@@ -63,7 +63,6 @@ export default function AdminLayout() {
         <div className="p-5 border-b border-white/10 flex items-center justify-between">
           <div>
             <img src="/logo completo.png" alt="Vai & Vem" className="h-10 w-auto brightness-0 invert" />
-            <p className="text-white/40 text-[10px] font-mono uppercase tracking-widest mt-2">Painel Admin</p>
           </div>
           <button 
             onClick={() => setSidebarOpen(false)}
