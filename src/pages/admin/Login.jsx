@@ -24,7 +24,7 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-vv-navy flex items-center justify-center p-4">
+    <div className="min-h-screen bg-vv-navy flex items-center justify-center p-4" style={{ zoom: 1 }}>
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-8">
@@ -72,9 +72,20 @@ export default function AdminLogin() {
           </button>
         </form>
 
-        <p className="text-center text-white/30 text-xs mt-6">
-          Vai&Vem Transportes © {new Date().getFullYear()}
-        </p>
+        <div className="text-center text-white/30 text-xs mt-6 flex flex-col gap-1 items-center justify-center">
+          <span>Vai&Vem Transportes © {new Date().getFullYear()}</span>
+          <span>
+            Desenvolvido por{' '}
+            <a
+              href="https://carolgonzaga.site/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold hover:underline text-vv-blue transition-colors"
+            >
+              CarolGonzaga
+            </a>
+          </span>
+        </div>
       </div>
     </div>
   );
